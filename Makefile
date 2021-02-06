@@ -1,3 +1,4 @@
 all:
 	gcc -std=c99 -Wall -pedantic -o bfc bfc.c
-	./bfc main.bf
+	python3 main.py > out.bf
+	./bfc out.bf
