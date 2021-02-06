@@ -93,7 +93,8 @@ int compile_bf(FILE* fp) {
 }
 
 int execute_bf() {
-    unsigned short data[DATA_SIZE], pc = 0;
+    unsigned char data[DATA_SIZE];
+    unsigned int pc = 0;
     unsigned int ptr = DATA_SIZE;
     while (--ptr) { data[ptr] = 0; }
     while (PROGRAM[pc].operator != OP_END && ptr < DATA_SIZE) {
