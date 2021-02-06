@@ -36,7 +36,7 @@
 #define SUCCESS         0
 #define FAILURE         1
 
-#define PROGRAM_SIZE    4096
+#define PROGRAM_SIZE    65536
 #define STACK_SIZE      512
 #define DATA_SIZE       65535
 
