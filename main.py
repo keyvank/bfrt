@@ -5,13 +5,20 @@ from pybrainfuck.common import *
 from pybrainfuck.bitwise import *
 from pybrainfuck.loop import *
 from pybrainfuck.math import *
+from pybrainfuck.cmp import *
 
 if __name__ == '__main__':
     circ = Circuit()
     a = circ.new_cell()
+    b = circ.new_cell()
     Put(circ, a, 123)
+    Put(circ, b, 123)
 
-    PrintString(circ, "Hello World!\n==========\n")
+    c = circ.new_cell()
+    Eq(circ, a, b, c)
+    Print(circ, c)
+
+    PrintString(circ, "\nHello World!\n==========\n")
 
     cnt = circ.new_cell()
     cnt2 = circ.new_cell()
