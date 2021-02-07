@@ -48,4 +48,16 @@ if __name__ == '__main__':
         Print(circ, alt)
     PrintString(circ, "\n")
 
+    cond = circ.new_cell()
+    cnt = circ.new_cell()
+    Put(circ, cnt, 10)
+    Copy(circ, cnt, cond)
+    Lt(circ, cond, Const(circ, 20))
+    with While(circ, cond):
+        Print(circ, cnt)
+        Inc(circ, cnt)
+        Copy(circ, cnt, cond)
+        Lt(circ, cond, Const(circ, 20))
+    PrintString(circ, "\n")
+
     print(circ.compile())

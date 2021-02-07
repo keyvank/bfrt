@@ -28,3 +28,17 @@ class IfNotZero:
     def __exit__(self, type, value, traceback):
         self.circuit.goto(self.temp)
         self.circuit.emit('[-]]')
+
+
+class While:
+    def __init__(self, circuit, var):
+        self.circuit = circuit
+        self.var = var
+
+    def __enter__(self):
+        self.circuit.goto(self.var)
+        self.circuit.emit('[')
+
+    def __exit__(self, type, value, traceback):
+        self.circuit.goto(self.var)
+        self.circuit.emit(']')

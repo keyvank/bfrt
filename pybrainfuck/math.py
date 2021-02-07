@@ -10,3 +10,7 @@ def Add(circuit, a, b, c):
     circuit.emit("+")
     circuit.goto(temp)
     circuit.emit("]")
+
+def Inc(circuit, a):
+    circuit.goto(a)
+    circuit.emit('+')

@@ -31,6 +31,10 @@ def CopyOf(circuit, cell):
     Copy(circuit, cell, copy_cell)
     return copy_cell
 
+def Const(circuit, val):
+    cell = circuit.shared_cell("CONST")
+    Put(circuit, cell, val)
+    return cell
 
 # Puts value in inp
 def Put(circuit, cell_inp, val):
