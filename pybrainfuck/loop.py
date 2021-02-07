@@ -1,4 +1,4 @@
-from .common import Put
+from .common import Put, Copy
 
 class For:
     def __init__(self, circuit, var, times):
@@ -14,3 +14,17 @@ class For:
     def __exit__(self, type, value, traceback):
         self.circuit.goto(self.var)
         self.circuit.emit(']')
+
+class IfNotZero:
+    def __init__(self, circuit, var):
+        self.circuit = circuit
+        self.temp = self.circuit.new_cell()
+        Copy(circuit, var, self.temp)
+
+    def __enter__(self):
+        self.circuit.goto(self.temp)
+        self.circuit.emit('[')
+
+    def __exit__(self, type, value, traceback):
+        self.circuit.goto(self.temp)
+        self.circuit.emit('[-]]')
