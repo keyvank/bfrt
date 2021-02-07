@@ -25,3 +25,30 @@ Not = create_func(
         x[temp0+x[-]]+
         temp0[x-temp0-]
     """)
+
+And = create_func(
+    ["x", "y"], ["temp0", "temp1"],
+    """
+        temp0[-]
+        temp1[-]
+        x[temp1+x-]
+        temp1[
+         temp1[-]
+         y[temp1+temp0+y-]
+         temp0[y+temp0-]
+         temp1[x+temp1[-]]
+        ]
+    """)
+
+Or = create_func(
+    ["x", "y"], ["temp0", "temp1"],
+    """
+        temp0[-]
+        temp1[-]
+        x[temp1+x-]
+        temp1[x-temp1[-]]
+        y[temp1+temp0+y-]temp0[y+temp0-]
+        temp1[x[-]-temp1[-]]
+        x[temp1+x-]
+        temp1[x+temp1[-]]
+    """)
