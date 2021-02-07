@@ -1,4 +1,4 @@
-from .common import Copy
+from .common import Copy, Put
 
 
 def Print(circuit, cell):
@@ -8,3 +8,9 @@ def Print(circuit, cell):
     circuit.emit('>>++++++++++<<[->+>-[>+>>]>[+[-<+>]>+>>]<<<<<<]>>[-]>>>++++++++++<[->-[>+>>]>[+[-\
                   <+>]>+>>]<<<<<]>[-]>>[>++++++[-<++++++++>]<.<<+>+>[-]]<[<[->-<]++++++[->++++++++\
                   <]>.[-]]<<++++++[-<++++++++>]<.[-]<<[-<+>]<')
+
+def PrintString(circuit, s):
+    cell = circuit.shared_cell("PRINTSTRING")
+    for ch in s:
+        Put(circuit, cell, ord(ch))
+        circuit.emit('.')

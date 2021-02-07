@@ -10,9 +10,12 @@ if __name__ == '__main__':
     a = circ.new_cell()
     Put(circ, a, 123)
 
+    PrintString(circ, "Hello World!\n==========\n")
+
     cnt = circ.new_cell()
     cnt2 = circ.new_cell()
-    with For(circ, cnt2, 100):
-        with For(circ, cnt, 100):
+    with For(circ, cnt2, 5):
+        with For(circ, cnt, 5):
             Print(circ, cnt)
+            PrintString(circ, "\n")
     print(circ.compile())
