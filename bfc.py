@@ -18,6 +18,7 @@ with io.open(sys.argv[2], "w") as f:
     f.write("#include <stdio.h>\n")
     f.write("int main() {\n")
     f.write("unsigned char *data = (unsigned char *)malloc(30000);\n");
+    f.write("for(unsigned int i = 0; i < 30000; i++) data[i] = 0;\n")
     f.write("unsigned char *ptr = data;\n")
     moving = 0
     adding = 0
