@@ -1,4 +1,6 @@
-from .common import Copy
+from .common import Copy, Clear
+from .helper import create_func
+
 
 def FirstBit(circuit, cell_inp, cell_result):
     cells = circuit.new_cells(3)
@@ -14,3 +16,12 @@ def LastBit(circuit, cell_inp, cell_result):
     circuit.goto(cells[0])
     circuit.emit("+++++++[-> [-[->>+<]>[<]<] >>[-<<+>>]<< <]")
     Copy(circuit, cells[1], cell_result)
+
+
+Not = create_func(
+    ["x"],
+    """
+        temp0[-]
+        x[temp0+x[-]]+
+        temp0[x-temp0-]
+    """)

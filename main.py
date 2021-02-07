@@ -11,15 +11,18 @@ if __name__ == '__main__':
     circ = Circuit()
     a = circ.new_cell()
     b = circ.new_cell()
-    Put(circ, a, 122)
+    Put(circ, a, 124)
     Put(circ, b, 123)
 
     with IfNotZero(circ, a):
         PrintString(circ, "Not zero!\n")
 
     c = circ.new_cell()
+    d = circ.new_cell()
     Eq(circ, a, b, c)
+    Gt(circ, a, b, d)
     Print(circ, c)
+    Print(circ, d)
 
     PrintString(circ, "\nHello World!\n==========\n")
 
@@ -35,4 +38,11 @@ if __name__ == '__main__':
             PrintString(circ, " = ")
             Print(circ, sum)
             PrintString(circ, "\n")
+
+    alt = circ.new_cell()
+    with For(circ, cnt, 80):
+        Not(circ, alt)
+        Print(circ, alt)
+    PrintString(circ, "\n")
+
     print(circ.compile())
