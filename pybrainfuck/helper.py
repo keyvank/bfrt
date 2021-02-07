@@ -1,9 +1,7 @@
 import re
 
-def create_func(inps, code):
+def create_func(inps, temps, code):
     tokens = list(re.findall(r'(?:[\<\>\+\-\.\,\[\]]+|\w+)', code))
-    vars = {t for t in tokens if t.isalnum()}
-    temps = vars - set(inps)
     code = "def F(circuit, {}):\n".format(', '.join(inps))
     for temp in temps:
         code += "   {} = circuit.shared_cell('_{}')\n".format(temp, temp.upper())

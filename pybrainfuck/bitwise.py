@@ -19,7 +19,7 @@ def LastBit(circuit, cell_inp, cell_result):
 
 
 Not = create_func(
-    ["x"],
+    ["x"], ["temp0"],
     """
         temp0[-]
         x[temp0+x[-]]+

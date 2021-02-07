@@ -26,6 +26,11 @@ def Copy(circuit, cell_src, cell_dst):
     circuit.goto(cell_temp)
     circuit.emit(']')
 
+def CopyOf(circuit, cell):
+    copy_cell = circuit.new_cell()
+    Copy(circuit, cell, copy_cell)
+    return copy_cell
+
 
 # Puts value in inp
 def Put(circuit, cell_inp, val):
