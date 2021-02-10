@@ -1,5 +1,5 @@
 from .common import Copy, Clear
-from .helper import create_func
+from .helper import create_func, inplace_to_stable
 
 
 def FirstBit(circuit, cell_inp, cell_result):
@@ -18,16 +18,18 @@ def LastBit(circuit, cell_inp, cell_result):
     Copy(circuit, cells[1], cell_result)
 
 
-Not = create_func(
-    ["x"], ["temp0"],
+NotInplace = create_func(
+    ["x"], [("temp0", 1)],
     """
         temp0[-]
         x[temp0+x[-]]+
         temp0[x-temp0-]
     """)
 
-And = create_func(
-    ["x", "y"], ["temp0", "temp1"],
+Not = inplace_to_stable(NotInplace)
+
+AndInplace = create_func(
+    ["x", "y"], [("temp0", 1), ("temp1", 1)],
     """
         temp0[-]
         temp1[-]
@@ -40,8 +42,10 @@ And = create_func(
         ]
     """)
 
-Or = create_func(
-    ["x", "y"], ["temp0", "temp1"],
+And = inplace_to_stable(AndInplace)
+
+OrInplace = create_func(
+    ["x", "y"], [("temp0", 1), ("temp1", 1)],
     """
         temp0[-]
         temp1[-]
@@ -52,3 +56,5 @@ Or = create_func(
         x[temp1+x-]
         temp1[x+temp1[-]]
     """)
+
+Or = inplace_to_stable(OrInplace)

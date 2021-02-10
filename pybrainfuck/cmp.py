@@ -1,11 +1,11 @@
 from .common import Copy
-from .helper import create_func
+from .helper import create_func, inplace_to_stable
 
 
 # Brainfuck Algorithms
 # x = x == y
-Eq = create_func(
-    ["x", "y"], ["temp0", "temp1"],
+EqInplace = create_func(
+    ["x", "y"], [("temp0", 1), ("temp1", 1)],
     """
         temp0[-]
         temp1[-]
@@ -15,10 +15,12 @@ Eq = create_func(
         temp1[x-temp1[-]]
     """)
 
+Eq = inplace_to_stable(EqInplace)
+
 # Brainfuck Algorithms
 # x = x < y
-Lt = create_func(
-    ["x", "y"], ["temp0", "temp1"],
+LtInplace = create_func(
+    ["x", "y"], [("temp0", 1), ("temp1", 3)],
     """
         temp0[-]
         temp1[-] >[-]+ >[-] <<
@@ -29,10 +31,12 @@ Lt = create_func(
         temp0[temp1- [>-]> [< x- temp0[-]+ temp1>->]<+< temp0-]
     """)
 
+Lt = inplace_to_stable(LtInplace)
+
 # Brainfuck Algorithms
 # x = x <= y
-Lte = create_func(
-    ["x", "y"], ["temp0", "temp1"],
+LteInplace = create_func(
+    ["x", "y"], [("temp0", 1), ("temp1", 3)],
     """
         temp0[-]
         temp1[-] >[-]+ >[-] <<
@@ -42,3 +46,5 @@ Lte = create_func(
         temp1[>-]> [< x+ temp0[-] temp1>->]<+<
         temp0[temp1- [>-]> [< x+ temp0[-]+ temp1>->]<+< temp0-]
     """)
+
+Lte = inplace_to_stable(LteInplace)
