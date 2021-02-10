@@ -9,11 +9,11 @@ from pybrainfuck.cmp import *
 
 if __name__ == '__main__':
     circ = Circuit()
-    a = circ.new_cell()
-    b = circ.new_cell()
-    c = circ.new_cell()
-    d = circ.new_cell()
-    e = circ.new_cell()
+    a = circ.new_var(1)
+    b = circ.new_var(1)
+    c = circ.new_var(1)
+    d = circ.new_var(1)
+    e = circ.new_var(1)
     Put(circ, a, 101)
     Put(circ, b, 100)
     Print(circ, a)
@@ -56,9 +56,9 @@ if __name__ == '__main__':
 
     PrintString(circ, "\nHello World!\n==========\n")
 
-    cnt = circ.new_cell()
-    cnt2 = circ.new_cell()
-    sum = circ.new_cell()
+    cnt = circ.new_var(1)
+    cnt2 = circ.new_var(1)
+    sum = circ.new_var(1)
     with For(circ, cnt2, 5):
         with For(circ, cnt, 5):
             Add(circ, cnt, cnt2, sum)
@@ -69,14 +69,14 @@ if __name__ == '__main__':
             Print(circ, sum)
             PrintString(circ, "\n")
 
-    alt = circ.new_cell()
+    alt = circ.new_var(1)
     with For(circ, cnt, 80):
         Not(circ, alt, alt)
         Print(circ, alt)
     PrintString(circ, "\n")
 
-    cond = circ.new_cell()
-    cnt = circ.new_cell()
+    cond = circ.new_var(1)
+    cnt = circ.new_var(1)
     Put(circ, cnt, 10)
     Lt(circ, cond, cnt, Const(circ, 20))
     with While(circ, cond):

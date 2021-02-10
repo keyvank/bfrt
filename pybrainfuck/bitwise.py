@@ -3,7 +3,7 @@ from .helper import create_func, inplace_to_stable
 
 
 def FirstBit(circuit, cell_inp, cell_result):
-    cells = circuit.new_cells(3)
+    cells = circuit.new_var(3)
     Copy(circuit, cell_inp, cells[1])
     circuit.goto(cells[0])
     circuit.emit("+++[->[->++<]>[-<++>]<<]>[->++<]>[<<+>>[-]]<<")
@@ -11,7 +11,7 @@ def FirstBit(circuit, cell_inp, cell_result):
 
 
 def LastBit(circuit, cell_inp, cell_result):
-    cells = circuit.new_cells(4)
+    cells = circuit.new_var(4)
     Copy(circuit, cell_inp, cells[1])
     circuit.goto(cells[0])
     circuit.emit("+++++++[-> [-[->>+<]>[<]<] >>[-<<+>>]<< <]")

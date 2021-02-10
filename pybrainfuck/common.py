@@ -5,7 +5,7 @@ def Clear(circuit, cell_inp):
 
 # Copies src to dst
 def Copy(circuit, cell_src, cell_dst):
-    cell_temp = circuit.shared_cell("COPY")
+    cell_temp = circuit.shared_var("COPY", 1)
     Clear(circuit, cell_dst)
 
     # Move src to temp and dst
@@ -27,12 +27,12 @@ def Copy(circuit, cell_src, cell_dst):
     circuit.emit(']')
 
 def CopyOf(circuit, cell):
-    copy_cell = circuit.new_cell()
+    copy_cell = circuit.new_var(1)
     Copy(circuit, cell, copy_cell)
     return copy_cell
 
 def Const(circuit, val):
-    cell = circuit.shared_cell("CONST")
+    cell = circuit.shared_var("CONST", 1)
     Put(circuit, cell, val)
     return cell
 

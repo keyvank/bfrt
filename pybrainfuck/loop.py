@@ -18,7 +18,7 @@ class For:
 class IfNotZero:
     def __init__(self, circuit, var):
         self.circuit = circuit
-        self.temp = self.circuit.new_cell()
+        self.temp = self.circuit.new_var(1)
         Copy(circuit, var, self.temp)
 
     def __enter__(self):

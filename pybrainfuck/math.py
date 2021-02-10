@@ -1,7 +1,7 @@
 from .common import *
 
 def Add(circuit, a, b, c):
-    temp = circuit.shared_cell("ADD")
+    temp = circuit.shared_var("ADD", 1)
     Copy(circuit, a, temp)
     Copy(circuit, b, c)
     circuit.goto(temp)

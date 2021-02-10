@@ -1,7 +1,11 @@
 from .opt import optimize
-class Cell:
-    def __init__(self, pos):
+class Var:
+    def __init__(self, pos, size):
         self.pos = pos
+        self.size = size
+
+    def __getitem__(self, ind):
+        return Var(self.pos + ind, 1)
 
 class Circuit:
     def __init__(self):
@@ -11,7 +15,7 @@ class Circuit:
         self.shared = {}
 
     def pc(self):
-        return Cell(self.pos)
+        return Var(self.pos)
 
     def seek(self, offset):
         self.pos += offset
@@ -26,22 +30,14 @@ class Circuit:
     def emit(self, code):
         self.code += code
 
-    def new_cell(self):
-        cell = Cell(self.next_cell)
-        self.next_cell += 1
+    def new_var(self, size):
+        cell = Var(self.next_cell, size)
+        self.next_cell += size
         return cell
 
-    def new_cells(self, n):
-        return [self.new_cell() for i in range(n)]
-
-    def shared_cell(self, name):
+    def shared_var(self, name, size):
         if name not in self.shared:
-            self.shared[name] = self.new_cell()
-        return self.shared[name]
-
-    def shared_cells(self, name, n):
-        if name not in self.shared:
-            self.shared[name] = self.new_cells(n)
+            self.shared[name] = self.new_var(size)
         return self.shared[name]
 
     def compile(self):
