@@ -16,13 +16,14 @@ if __name__ == '__main__':
     e = circ.new_cell()
     Put(circ, a, 101)
     Put(circ, b, 100)
+    Print(circ, a)
+    PrintString(circ, "-")
+    Print(circ, b)
 
     Eq(circ, c, a, b)
     Lt(circ, d, a, b)
     Lte(circ, e, a, b)
 
-    Print(circ, a)
-    Print(circ, b)
     PrintString(circ, "\n-----\n")
     PrintString(circ, "Eq: ")
     Print(circ, c)
@@ -34,6 +35,12 @@ if __name__ == '__main__':
 
     with IfNotZero(circ, a):
         PrintString(circ, "a is not zero!\n")
+
+    Put(circ, a, 0)
+    Put(circ, b, 1)
+    Print(circ, a)
+    PrintString(circ, "-")
+    Print(circ, b)
 
     And(circ, c, a, b)
     Or(circ, d, a, b)
