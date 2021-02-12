@@ -14,8 +14,10 @@ if __name__ == '__main__':
     c = circ.new_var(1)
     d = circ.new_var(1)
     e = circ.new_var(1)
-    Put(circ, a, 101)
-    Put(circ, b, 100)
+    f = circ.new_var(1)
+    g = circ.new_var(1)
+    Put(circ, a, 100)
+    Put(circ, b, 42)
     Print(circ, a)
     PrintString(circ, "-")
     Print(circ, b)
@@ -23,6 +25,7 @@ if __name__ == '__main__':
     Eq(circ, c, a, b)
     Lt(circ, d, a, b)
     Lte(circ, e, a, b)
+    DivMod(circ, f, g, a, b)
 
     PrintString(circ, "\n-----\n")
     PrintString(circ, "Eq: ")
@@ -31,6 +34,10 @@ if __name__ == '__main__':
     Print(circ, d)
     PrintString(circ, "\nLte: ")
     Print(circ, e)
+    PrintString(circ, "\nDiv: ")
+    Print(circ, f)
+    PrintString(circ, "\nMod: ")
+    Print(circ, g)
     PrintString(circ, "\n")
 
     with IfNotZero(circ, a):
@@ -61,7 +68,7 @@ if __name__ == '__main__':
     sum = circ.new_var(1)
     with For(circ, cnt2, 5):
         with For(circ, cnt, 5):
-            Add(circ, cnt, cnt2, sum)
+            Add(circ, sum, cnt, cnt2)
             Print(circ, cnt)
             PrintString(circ, " + ")
             Print(circ, cnt2)
