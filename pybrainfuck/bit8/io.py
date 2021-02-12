@@ -40,3 +40,15 @@ def PrintString(circuit, s):
     for ch in s:
         Put(circuit, cell, ord(ch))
         circuit.emit('.')
+
+def PrintByte(circuit, b):
+    cell = circuit.shared_var("PRINTBYTE", 1)
+    circuit.goto(b)
+    circuit.emit('.')
+
+def PrintBytes(circuit, s):
+    cell = circuit.shared_var("PRINTBYTES", 1)
+    for ch in s:
+        Put(circuit, cell, int(ch))
+        circuit.goto(cell)
+        circuit.emit('.')
