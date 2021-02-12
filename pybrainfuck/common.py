@@ -36,6 +36,11 @@ def Const(circuit, val):
     Put(circuit, cell, val)
     return cell
 
+def NewConst(circuit, val):
+    cell = circuit.new_var(1)
+    Put(circuit, cell, val)
+    return cell
+
 # Puts value in inp
 def Put(circuit, cell_inp, val):
     Clear(circuit, cell_inp)

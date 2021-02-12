@@ -17,6 +17,10 @@ if __name__ == '__main__':
     f = circ.new_var(1)
     g = circ.new_var(1)
     Put(circ, a, 100)
+
+    with IfZero(circ, a):
+        PrintString(circ,"Is zero!\n")
+
     Put(circ, b, 42)
     Print(circ, a)
     PrintString(circ, "-")
@@ -91,5 +95,13 @@ if __name__ == '__main__':
         Inc(circ, cnt)
         Lt(circ, cond, cnt, Const(circ, 20))
     PrintString(circ, "\n")
+
+    PrintString(circ, "------\n")
+    with For(circ, cnt, 255):
+        Print(circ, cnt)
+        PrintString(circ, " = 0x")
+        PrintHex(circ, cnt)
+        PrintString(circ, "\n")
+
 
     print(circ.compile())
