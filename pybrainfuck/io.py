@@ -31,6 +31,10 @@ def PrintHex(circuit, cell):
     circuit.goto(right)
     circuit.emit('.')
 
+def PrintHex32(circuit, val):
+    for i in range(4):
+        PrintHex(circuit, val[3 - i])
+
 def PrintString(circuit, s):
     cell = circuit.shared_var("PRINTSTRING", 1)
     for ch in s:

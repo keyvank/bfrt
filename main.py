@@ -9,6 +9,22 @@ from pybrainfuck.cmp import *
 
 if __name__ == '__main__':
     circ = Circuit()
+
+    aa = circ.new_var(4)
+    Put32(circ, aa, 0xabcdefed)
+    bb = circ.new_var(4)
+    Put32(circ, bb, 0xbcdefedc)
+    cc = circ.new_var(4)
+    Add32(circ, cc, aa, bb)
+
+    PrintHex32(circ, aa)
+    PrintString(circ, "+")
+    PrintHex32(circ, bb)
+    PrintString(circ, "=")
+    PrintHex32(circ, cc)
+
+    PrintString(circ, "\n")
+
     a = circ.new_var(1)
     b = circ.new_var(1)
     c = circ.new_var(1)

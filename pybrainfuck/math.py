@@ -1,5 +1,7 @@
 from .common import *
 from .helper import create_func, inplace_to_stable
+from .loop import IfZero, IfNotZero
+from .cmp import Lt, Lte
 
 AddInplace = create_func(
     ["x", "y"], [("temp0", 1)],
@@ -22,6 +24,24 @@ SubInplace = create_func(
 )
 
 Sub = inplace_to_stable(SubInplace)
+
+def FullAdder(circuit, out, carry_out, a, b, carry_in):
+    temp = circuit.shared_var("FULL_ADDER", 1)
+    Add(circuit, out, a, b)
+    AddInplace(circuit, out, carry_in)
+    with IfNotZero(circuit, carry_in):
+        Lte(circuit, carry_out, out, a)
+    with IfZero(circuit, carry_in):
+        Lt(circuit, carry_out, out, a)
+
+def Add32(circuit, out, a, b):
+    carry_in = circuit.shared_var("ADD32_CARRY_IN", 1)
+    carry_out = circuit.shared_var("ADD32_CARRY_OUT", 1)
+    Clear(circuit, carry_in)
+    for i in range(4):
+        FullAdder(circuit, out[i], carry_out, a[i], b[i], carry_in)
+        Copy(circuit, carry_out, carry_in)
+
 
 def Inc(circuit, a):
     circuit.goto(a)
