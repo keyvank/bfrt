@@ -47,6 +47,10 @@ def Inc(circuit, a):
     circuit.goto(a)
     circuit.emit('+')
 
+def Dec(circuit, a):
+    circuit.goto(a)
+    circuit.emit('-')
+
 DivInplace = create_func(
     ["x", "y"], [("temp0", 1), ("temp1", 1), ("temp2", 1), ("temp3", 1)],
     """
