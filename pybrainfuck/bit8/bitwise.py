@@ -1,5 +1,5 @@
 from .common import Copy, Clear
-from .helper import create_func, inplace_to_stable
+from ..helper import create_func, inplace_to_stable
 
 
 def FirstBit(circuit, cell_inp, cell_result):

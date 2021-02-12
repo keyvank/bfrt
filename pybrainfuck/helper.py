@@ -1,5 +1,5 @@
 import re
-from .common import Copy
+from .bit8.common import Copy
 
 def create_func(inps, temps, src):
     tokens = list(re.findall(r'(?:[\<\>\+\-\.\,\[\]]+|\w+)', src))

@@ -1,5 +1,5 @@
 from .common import *
-from .helper import create_func, inplace_to_stable
+from ..helper import create_func, inplace_to_stable
 from .loop import IfZero, IfNotZero
 from .cmp import Lt, Lte
 

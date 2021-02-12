@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 from pybrainfuck.circuit import Circuit
-from pybrainfuck.io import *
-from pybrainfuck.common import *
-from pybrainfuck.bitwise import *
-from pybrainfuck.loop import *
-from pybrainfuck.math import *
-from pybrainfuck.cmp import *
+from pybrainfuck.bit8.io import *
+from pybrainfuck.bit8.common import *
+from pybrainfuck.bit8.bitwise import *
+from pybrainfuck.bit8.loop import *
+from pybrainfuck.bit8.math import *
+from pybrainfuck.bit8.cmp import *
 
 if __name__ == '__main__':
     circ = Circuit()
@@ -118,6 +118,5 @@ if __name__ == '__main__':
         PrintString(circ, " = 0x")
         PrintHex(circ, cnt)
         PrintString(circ, "\n")
-
 
     print(circ.compile())

@@ -1,5 +1,5 @@
 from .common import Copy
-from .helper import create_func, inplace_to_stable
+from ..helper import create_func, inplace_to_stable
 
 
 # Brainfuck Algorithms
