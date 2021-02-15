@@ -25,6 +25,10 @@ SubInplace = create_func(
 
 Sub = inplace_to_stable(SubInplace)
 
+def HalfAdderInplace(circuit, out, carry_out, inp):
+    AddInplace(circuit, out, inp)
+    Lt(circuit, carry_out, out, inp)
+
 def FullAdder(circuit, out, carry_out, a, b, carry_in):
     temp = circuit.shared_var("FULL_ADDER", 1)
     Add(circuit, out, a, b)
@@ -33,6 +37,20 @@ def FullAdder(circuit, out, carry_out, a, b, carry_in):
         Lte(circuit, carry_out, out, a)
     with IfZero(circuit, carry_in):
         Lt(circuit, carry_out, out, a)
+
+def Mul(circuit, hi, lo, a, b):
+    temp = circuit.shared_var("MUL_TEMP", 1)
+    carry = circuit.shared_var("MUL_CARRY", 1)
+    Clear(circuit, hi)
+    Clear(circuit, lo)
+    Copy(circuit, a, temp)
+    circuit.goto(temp)
+    circuit.emit("[-")
+    HalfAdderInplace(circuit, lo, carry, b)
+    AddInplace(circuit, hi, carry)
+    circuit.goto(temp)
+    circuit.emit("]")
+
 
 def Add32(circuit, out, a, b):
     carry_in = circuit.shared_var("ADD32_CARRY_IN", 1)
