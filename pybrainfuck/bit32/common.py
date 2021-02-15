@@ -15,3 +15,10 @@ def Const32(circuit, val):
         Put(circuit, cells[i], val % 256)
         val = val // 256
     return cells
+
+def NewConst32(circuit, val):
+    cells = circuit.new_var(4)
+    for i in range(4):
+        Put(circuit, cells[i], val % 256)
+        val = val // 256
+    return cells

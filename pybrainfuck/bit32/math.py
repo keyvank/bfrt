@@ -12,6 +12,9 @@ def Add32(circuit, out, a, b):
         FullAdder(circuit, out[i], carry_out, a[i], b[i], carry_in)
         Copy(circuit, carry_out, carry_in)
 
+def Mul32(circuit, out, a, b):
+    pass
+
 def Inc32(circuit, a):
     carry = circuit.shared_var("INC32", 1)
     Inc(circuit, a[0])

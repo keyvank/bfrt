@@ -1,6 +1,6 @@
 from .common import Copy, Put, Const, NewConst
 from .math import DivMod, AddInplace
-from .loop import Conditional
+from .blocks import Conditional
 from .cmp import Lt
 
 def Print(circuit, cell):
