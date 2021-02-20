@@ -140,5 +140,6 @@ cython_debug/
 
 out.bf
 out.c
+outopt.c
 out.ppm
 out
