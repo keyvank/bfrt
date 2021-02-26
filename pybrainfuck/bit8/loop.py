@@ -1,4 +1,4 @@
-from .common import Put, Copy, NewConst, Clear
+from .common import Put, Copy
 from .cmp import EqInplace
 from .math import Inc
 from .blocks import IfZero, IfNotZero
@@ -6,11 +6,11 @@ from .blocks import IfZero, IfNotZero
 class For:
     def __init__(self, circuit, var, times):
         self.circuit = circuit
-        self.times = NewConst(circuit, times)
+        self.times = circuit.alloc_const8(times)
         self.var = var
 
     def __enter__(self):
-        Clear(self.circuit, self.var)
+        self.var.clear()
         self.circuit.goto(self.times)
         self.circuit.emit('[-')
 
@@ -18,6 +18,7 @@ class For:
         Inc(self.circuit, self.var)
         self.circuit.goto(self.times)
         self.circuit.emit(']')
+        self.times.free()
 
 
 class While:

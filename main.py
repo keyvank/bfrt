@@ -9,6 +9,7 @@ import pybrainfuck.bit8.cmp as b8cmp
 import pybrainfuck.bit32.math as b32math
 import pybrainfuck.bit32.io as b32io
 import pybrainfuck.bit32.loop as b32loop
+import pybrainfuck.bit32.common as b32cmn
 
 WIDTH = 1280
 HEIGHT = 800
@@ -18,8 +19,8 @@ if __name__ == '__main__':
 
     b8io.PrintString(circ, "P6 {} {} 255 ".format(WIDTH, HEIGHT))
 
-    x = circ.new_var(4)
-    y = circ.new_var(4)
+    x = circ.alloc(4)
+    y = circ.alloc(4)
 
     with b32loop.For32(circ, y, HEIGHT):
         with b32loop.For32(circ, x, WIDTH):

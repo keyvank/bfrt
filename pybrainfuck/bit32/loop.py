@@ -1,4 +1,4 @@
-from .common import Put32, NewConst32
+from .common import Put32
 from .cmp import Eq32
 from .math import Inc32
 from ..bit8.bitwise import NotInplace
@@ -6,9 +6,9 @@ from ..bit8.bitwise import NotInplace
 class For32:
     def __init__(self, circuit, var, times):
         self.circuit = circuit
-        self.times = NewConst32(self.circuit, times)
         self.var = var
-        self.cond = self.circuit.new_var(1)
+        self.times = self.circuit.alloc_const32(times)
+        self.cond = self.circuit.alloc(1)
 
     def __enter__(self):
         Put32(self.circuit, self.var, 0)
@@ -26,3 +26,6 @@ class For32:
         self.circuit.goto(self.cond)
 
         self.circuit.emit(']')
+
+        self.times.free()
+        self.cond.free()

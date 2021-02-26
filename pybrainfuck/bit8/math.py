@@ -30,19 +30,20 @@ def HalfAdderInplace(circuit, out, carry_out, inp):
     Lt(circuit, carry_out, out, inp)
 
 def FullAdder(circuit, out, carry_out, a, b, carry_in):
-    temp = circuit.shared_var("FULL_ADDER", 1)
+    temp = circuit.alloc(1)
     Add(circuit, out, a, b)
     AddInplace(circuit, out, carry_in)
     with IfNotZero(circuit, carry_in):
         Lte(circuit, carry_out, out, a)
     with IfZero(circuit, carry_in):
         Lt(circuit, carry_out, out, a)
+    temp.free()
 
 def Mul(circuit, hi, lo, a, b):
-    temp = circuit.shared_var("MUL_TEMP", 1)
-    carry = circuit.shared_var("MUL_CARRY", 1)
-    Clear(circuit, hi)
-    Clear(circuit, lo)
+    temp = circuit.alloc(1)
+    carry = circuit.alloc(1)
+    hi.clear()
+    lo.clear()
     Copy(circuit, a, temp)
     circuit.goto(temp)
     circuit.emit("[-")
@@ -50,15 +51,19 @@ def Mul(circuit, hi, lo, a, b):
     AddInplace(circuit, hi, carry)
     circuit.goto(temp)
     circuit.emit("]")
+    temp.free()
+    carry.free()
 
 
 def Add32(circuit, out, a, b):
-    carry_in = circuit.shared_var("ADD32_CARRY_IN", 1)
-    carry_out = circuit.shared_var("ADD32_CARRY_OUT", 1)
-    Clear(circuit, carry_in)
+    carry_in = circuit.alloc(1)
+    carry_out = circuit.alloc(1)
+    carry_in.clear()
     for i in range(4):
         FullAdder(circuit, out[i], carry_out, a[i], b[i], carry_in)
         Copy(circuit, carry_out, carry_in)
+    carry_in.free()
+    carry_out.free()
 
 
 def Inc(circuit, a):
@@ -96,7 +101,7 @@ DivInplace = create_func(
 Div = inplace_to_stable(DivInplace)
 
 def DivMod(circuit, q, r, x, y):
-    temp = circuit.shared_var("DIV_MOD", 1)
+    temp = circuit.alloc(1)
     Div(circuit, q, x, y)
     Copy(circuit, q, temp)
     Copy(circuit, x, r)
@@ -105,3 +110,4 @@ def DivMod(circuit, q, r, x, y):
     SubInplace(circuit, r, y)
     circuit.goto(temp)
     circuit.emit("]")
+    temp.free()
