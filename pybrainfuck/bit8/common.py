@@ -1,9 +1,7 @@
 from ..helper import create_func
 
 # Sets inp to zero
-def Clear(circuit, cell_inp):
-    circuit.goto(cell_inp)
-    circuit.emit("[-]")
+Clear = create_func(["inp"], [], "inp[-]")
 
 # dst = src
 Copy = create_func(
