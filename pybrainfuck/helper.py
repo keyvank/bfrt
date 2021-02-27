@@ -1,5 +1,4 @@
 import re
-from .bit8.common import Copy
 
 def create_func(inps, temps, src):
     tokens = list(re.findall(r'(?:[\<\>\+\-\.\,\[\]]+|\w+)', src))
@@ -18,6 +17,7 @@ def create_func(inps, temps, src):
     return ldict['F']
 
 def inplace_to_stable(inplace):
+    from .bit8.common import Copy
     def stable(*args):
         circuit = args[0]
         result = circuit.alloc(1)
