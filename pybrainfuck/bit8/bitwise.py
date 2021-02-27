@@ -2,24 +2,6 @@ from .common import Copy
 from ..helper import create_func, inplace_to_stable
 
 
-def FirstBit(circuit, cell_inp, cell_result):
-    cells = circuit.alloc(3)
-    Copy(circuit, cell_inp, cells[1])
-    circuit.goto(cells[0])
-    circuit.emit("+++[->[->++<]>[-<++>]<<]>[->++<]>[<<+>>[-]]<<")
-    Copy(circuit, cells[0], cell_result)
-    cells.free()
-
-
-def LastBit(circuit, cell_inp, cell_result):
-    cells = circuit.alloc(4)
-    Copy(circuit, cell_inp, cells[1])
-    circuit.goto(cells[0])
-    circuit.emit("+++++++[-> [-[->>+<]>[<]<] >>[-<<+>>]<< <]")
-    Copy(circuit, cells[1], cell_result)
-    cells.free()
-
-
 NotInplace = create_func(
     ["x"], [("temp0", 1)],
     """

@@ -27,16 +27,6 @@ def MacWithCarry(circuit, out, carry, a, b, c):
     hi.free()
     temp.free()
 
-def AddWithCarry(circuit, a, carry, b):
-    hi = circuit.alloc(1)
-    carry2 = circuit.alloc(1)
-    HalfAdderInplace(circuit, a, hi, b)
-    HalfAdderInplace(circuit, a, carry2, carry)
-    AddInplace(circuit, hi, carry2)
-    Copy(circuit, hi, carry)
-    hi.free()
-    carry2.free()
-
 
 def Mul32(circuit, out, a, b):
     temp = circuit.alloc(1)
