@@ -5,7 +5,7 @@ from .cmp import Lt
 
 def Print(circuit, cell):
     cells = circuit.alloc(10)
-    Copy(circuit, cell, cells[0])
+    Copy(circuit, cells[0], cell)
     circuit.goto(cells[0])
     circuit.emit('>>++++++++++<<[->+>-[>+>>]>[+[-<+>]>+>>]<<<<<<]>>[-]>>>++++++++++<[->-[>+>>]>[+[-\
                   <+>]>+>>]<<<<<]>[-]>>[>++++++[-<++++++++>]<.<<+>+>[-]]<[<[->-<]++++++[->++++++++\

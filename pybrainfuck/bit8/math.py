@@ -44,7 +44,7 @@ def Mul(circuit, hi, lo, a, b):
     carry = circuit.alloc(1)
     hi.clear()
     lo.clear()
-    Copy(circuit, a, temp)
+    Copy(circuit, temp, a)
     circuit.goto(temp)
     circuit.emit("[-")
     HalfAdderInplace(circuit, lo, carry, b)
@@ -61,7 +61,7 @@ def Add32(circuit, out, a, b):
     carry_in.clear()
     for i in range(4):
         FullAdder(circuit, out[i], carry_out, a[i], b[i], carry_in)
-        Copy(circuit, carry_out, carry_in)
+        Copy(circuit, carry_in, carry_out)
     carry_in.free()
     carry_out.free()
 
@@ -103,8 +103,8 @@ Div = inplace_to_stable(DivInplace)
 def DivMod(circuit, q, r, x, y):
     temp = circuit.alloc(1)
     Div(circuit, q, x, y)
-    Copy(circuit, q, temp)
-    Copy(circuit, x, r)
+    Copy(circuit, temp, q)
+    Copy(circuit, r, x)
     circuit.goto(temp)
     circuit.emit("[-")
     SubInplace(circuit, r, y)

@@ -21,8 +21,8 @@ def inplace_to_stable(inplace):
     def stable(*args):
         circuit = args[0]
         result = circuit.alloc(1)
-        Copy(circuit, args[2], result)
+        Copy(circuit, result, args[2])
         inplace(*[args[0], result, *args[3:]])
-        Copy(circuit, result, args[1])
+        Copy(circuit, args[1], result)
         result.free()
     return stable

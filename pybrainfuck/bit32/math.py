@@ -11,7 +11,7 @@ def Add32(circuit, out, a, b):
     carry_in.clear()
     for i in range(4):
         FullAdder(circuit, out[i], carry_out, a[i], b[i], carry_in)
-        Copy(circuit, carry_out, carry_in)
+        Copy(circuit, carry_in, carry_out)
     carry_in.free()
     carry_out.free()
 
@@ -23,7 +23,7 @@ def MacWithCarry(circuit, out, carry, a, b, c):
     AddInplace(circuit, hi, temp)
     HalfAdderInplace(circuit, out, temp, carry)
     AddInplace(circuit, hi, temp)
-    Copy(circuit, hi, carry)
+    Copy(circuit, carry, hi)
     hi.free()
     temp.free()
 
@@ -34,9 +34,9 @@ def Mul32(circuit, out, a, b):
     for i in range(4):
         carry.clear()
         for j in range(4):
-            Copy(circuit, out[i+j], temp)
+            Copy(circuit, temp, out[i+j])
             MacWithCarry(circuit, out[i+j], carry, a[i], b[j], temp)
-        Copy(circuit, carry, out[i+4])
+        Copy(circuit, out[i+4], carry)
     temp.free()
     carry.free()
 
@@ -44,7 +44,7 @@ def MulDecimal(circuit, z, x, y):
     result = circuit.alloc(8)
     Mul32(circuit, result, x, y)
     for i in range(4):
-        Copy(circuit, result[2 + i], z[i])
+        Copy(circuit, z[i], result[2 + i])
 
 def Inc32(circuit, a):
     carry = circuit.alloc(1)

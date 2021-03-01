@@ -5,7 +5,7 @@ Clear = create_func(["inp"], [], "inp[-]")
 
 # dst = src
 Copy = create_func(
-    ["src", "dst"], [("temp", 1)],
+    ["dst", "src"], [("temp", 1)],
     """
         dst[-]
         src[-temp+dst+src]
