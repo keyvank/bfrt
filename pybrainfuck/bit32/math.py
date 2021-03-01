@@ -40,6 +40,12 @@ def Mul32(circuit, out, a, b):
     temp.free()
     carry.free()
 
+def MulDecimal(circuit, z, x, y):
+    result = circuit.alloc(8)
+    Mul32(circuit, result, x, y)
+    for i in range(4):
+        Copy(circuit, result[2 + i], z[i])
+
 def Inc32(circuit, a):
     carry = circuit.alloc(1)
     zero = circuit.alloc_const8(0)
