@@ -2,12 +2,12 @@ import sys
 import re
 
 code = sys.stdin.read()
-code = code.replace('while (*ptr) {*ptr += -1;}','*ptr = 0;')
+code = code.replace('w(*p){*p+=-1;}','*p=0;')
 
-code = re.sub(r'while \(\*ptr\) \{\*ptr \+\= -1;ptr \+\= -(\d+);\*ptr \+\= 1;ptr \+\= \1;\}', r'*(ptr - \1) += *ptr; *ptr = 0;', code)
-code = re.sub(r'while \(\*ptr\) \{\*ptr \+\= -1;ptr \+\= (\d+);\*ptr \+\= 1;ptr \+\= -\1;\}', r'*(ptr + \1) += *ptr; *ptr = 0;', code)
+code = re.sub(r'w\(\*p\)\{\*p\+\=-1;p\+\=-(\d+);\*p\+\=1;p\+\=\1;\}',r'*(p-\1)+=*p;*p=0;', code)
+code = re.sub(r'w\(\*p\)\{\*p\+\=-1;p\+\=(\d+);\*p\+\=1;p\+\=-\1;\}',r'*(p+\1)+=*p;*p=0;', code)
 
-code = re.sub(r'while \(\*ptr\) \{ptr \+\= -(\d+);\*ptr \+\= 1;ptr \+\= \1;\*ptr \+\= -1;\}', r'*(ptr - \1) += *ptr; *ptr = 0;', code)
-code = re.sub(r'while \(\*ptr\) \{ptr \+\= (\d+);\*ptr \+\= 1;ptr \+\= -\1;\*ptr \+\= -1;\}', r'*(ptr + \1) += *ptr; *ptr = 0;', code)
+code = re.sub(r'w\(\*p\)\{p\+\=-(\d+);\*p\+\=1;p\+\=\1;\*p\+\=-1;\}',r'*(p-\1)+=*p;*p=0;', code)
+code = re.sub(r'w\(\*p\)\{p\+\=(\d+);\*p\+\=1;p\+\=-\1;\*p\+\=-1;\}',r'*(p+\1)+=*p;*p=0;', code)
 
 print(code)
