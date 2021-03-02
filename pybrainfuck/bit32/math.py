@@ -2,8 +2,10 @@ from ..bit8.common import *
 from ..helper import create_func, inplace_to_stable
 from ..bit8.blocks import IfZero, IfNotZero
 from ..bit8.cmp import Lt, Lte, Eq
-from ..bit8.math import FullAdder, Inc, Dec, Add, Mul, HalfAdderInplace, AddInplace
+from ..bit8.math import FullAdder, Inc, Dec, Add, Mul, HalfAdderInplace, AddInplace, BitwiseNotInplace
 from ..bit8.loop import For
+from ..bit8.io import PrintString
+from .common import *
 
 def Add32(circuit, out, a, b):
     carry_in = circuit.alloc(1)
@@ -14,6 +16,17 @@ def Add32(circuit, out, a, b):
         Copy(circuit, carry_in, carry_out)
     carry_in.free()
     carry_out.free()
+
+def Sub32(circuit, out, a, b):
+    b_copy = circuit.alloc(4)
+    Copy32(circuit, b_copy, b)
+    Neg32Inplace(circuit, b_copy)
+    Add32(circuit, out, a, b_copy)
+
+def Neg32Inplace(circuit, out):
+    for i in range(4):
+        BitwiseNotInplace(circuit, out[i])
+    Inc32(circuit, out)
 
 def MacWithCarry(circuit, out, carry, a, b, c):
     hi = circuit.alloc(1)
@@ -45,6 +58,18 @@ def MulDecimal(circuit, z, x, y):
     Mul32(circuit, result, x, y)
     for i in range(4):
         Copy(circuit, z[i], result[2 + i])
+
+def RecipDecimal(circuit, y, x):
+    Put32(circuit, y, 0x00010000)
+    two = circuit.alloc_const32(0x00020000)
+    temp1 = circuit.alloc(4)
+    temp2 = circuit.alloc(4)
+    i = circuit.alloc(1)
+    with For(circuit, i, 20):
+        MulDecimal(circuit, temp1, y, x)
+        Sub32(circuit, temp2, two, temp1)
+        MulDecimal(circuit, temp1, y, temp2)
+        Copy32(circuit, y, temp1)
 
 def Inc32(circuit, a):
     carry = circuit.alloc(1)

@@ -25,6 +25,18 @@ SubInplace = create_func(
 
 Sub = inplace_to_stable(SubInplace)
 
+def BitwiseNotInplace(circuit, x):
+    negator = circuit.alloc_const8(255)
+    SubInplace(circuit, negator, x)
+    Copy(circuit, x, negator)
+    negator.free()
+
+BitwiseNot = inplace_to_stable(BitwiseNotInplace)
+
+def NegInplace(circuit, x):
+    BitwiseNotInplace(circuit, x)
+    Inc(circuit, x)
+
 def HalfAdderInplace(circuit, out, carry_out, inp):
     AddInplace(circuit, out, inp)
     Lt(circuit, carry_out, out, inp)
